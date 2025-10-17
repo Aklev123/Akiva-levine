@@ -1,0 +1,597 @@
+:root {
+  --slide0-max-width: min(100vw, 1400px);
+  --sfmd-background-top: #0f1928;
+  --sfmd-background-bottom: #05080f;
+  --sfmd-foreground: #f6f7fb;
+  --sfmd-foreground-emphasis: rgba(255, 255, 255, 0.88);
+  --sfmd-foreground-muted: rgba(246, 247, 251, 0.74);
+  --sfmd-button-foreground: #05080f;
+  --sfmd-accent: #74f1c7;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(120% 120% at 50% 10%, var(--sfmd-background-top), var(--sfmd-background-bottom));
+  font-family: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--sfmd-foreground);
+}
+
+button {
+  font: inherit;
+}
+
+.wrapper {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(120% 120% at 50% 10%, var(--sfmd-background-top), var(--sfmd-background-bottom));
+  color: var(--sfmd-foreground);
+  font-family: var(--sfmd-font-display, "SF Pro Display", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  letter-spacing: 0.02em;
+  isolation: isolate;
+  transition: background 800ms ease;
+}
+
+.backgroundGlow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(45% 45% at 50% 20%, color-mix(in srgb, var(--sfmd-accent) 22%, transparent), transparent),
+    radial-gradient(60% 60% at 80% 60%, color-mix(in srgb, var(--sfmd-accent) 16%, transparent), transparent);
+  opacity: 0.7;
+  filter: blur(72px);
+  transform: scale(1.15);
+  z-index: 0;
+}
+
+.brandLayer {
+  position: absolute;
+  inset: clamp(24px, 6vw, 72px) clamp(20px, 5vw, 96px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.brandHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: clamp(260px, 38vw, 480px);
+}
+
+.logotype {
+  display: inline-flex;
+  gap: 6px;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--sfmd-foreground-emphasis);
+}
+
+.logotype span:nth-child(2) {
+  font-weight: 300;
+}
+
+.tagline {
+  margin: 0;
+  font-size: clamp(16px, 1.9vw, 22px);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--sfmd-foreground-muted);
+}
+
+.ctaGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.primaryCta {
+  pointer-events: auto;
+  border: none;
+  border-radius: 36px;
+  padding: 18px 40px;
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: 600;
+  color: var(--sfmd-button-foreground);
+  background: linear-gradient(135deg, var(--sfmd-accent), color-mix(in srgb, var(--sfmd-accent) 72%, #ffffff 8%));
+  box-shadow: 0 18px 30px rgba(21, 126, 104, 0.25);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.primaryCta:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--sfmd-accent) 65%, transparent);
+  outline-offset: 3px;
+}
+
+.primaryCta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 44px rgba(21, 126, 104, 0.32);
+}
+
+.secondaryCta {
+  pointer-events: auto;
+  border: none;
+  background: none;
+  padding: 0;
+  font-size: clamp(14px, 1.5vw, 16px);
+  color: var(--sfmd-foreground-muted);
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.secondaryCta span {
+  color: var(--sfmd-foreground);
+  text-decoration: underline;
+}
+
+.phoneRig {
+  position: relative;
+  width: min(84vw, 380px);
+  aspect-ratio: 390 / 844;
+  transform: perspective(1600px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 800ms cubic-bezier(0.19, 1, 0.22, 1), filter 800ms ease;
+  z-index: 2;
+}
+
+.phoneFrame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 44px;
+  padding: 16px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.03));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 60px 120px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(16px);
+}
+
+.phoneNotch {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34%;
+  height: 22px;
+  border-radius: 0 0 16px 16px;
+  background: rgba(4, 8, 14, 0.88);
+}
+
+.phoneScreen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 32px;
+  overflow: hidden;
+  background: linear-gradient(160deg, rgba(8, 12, 20, 0.96), rgba(4, 8, 14, 0.96));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.screenTrack {
+  display: flex;
+  width: 200%;
+  height: 100%;
+  transition: transform 800ms cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+.analysisScene,
+.dashboardScene {
+  position: relative;
+  flex: 1 0 50%;
+  display: grid;
+  place-items: center;
+  padding: clamp(24px, 8vw, 42px);
+}
+
+.analysisMedia {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 5;
+  max-width: 100%;
+  border-radius: 32px;
+  background: radial-gradient(80% 100% at 50% 0%, rgba(255, 255, 255, 0.08), transparent),
+    linear-gradient(200deg, rgba(116, 241, 199, 0.25), rgba(30, 57, 80, 0.05));
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.faceSilhouette {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0) 68%),
+    radial-gradient(40% 60% at 50% 35%, rgba(255, 255, 255, 0.18), transparent 70%);
+  mix-blend-mode: screen;
+  filter: saturate(110%);
+}
+
+.faceSilhouette::before {
+  content: "";
+  position: absolute;
+  inset: 18% 28%;
+  border-radius: 46% 42% 42% 46% / 52% 48% 52% 48%;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 42px rgba(116, 241, 199, 0.38);
+  opacity: 0.85;
+}
+
+.faceSilhouette::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(transparent 0 45%, rgba(116, 241, 199, 0.28) 55% 65%, transparent 75%);
+  mix-blend-mode: overlay;
+  animation: pulseGrid 3s ease-in-out infinite;
+}
+
+.scanLine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent, rgba(116, 241, 199, 0.8) 45%, rgba(116, 241, 199, 0.1) 65%, transparent);
+  animation: scanDown 2.4s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+.metricBadge {
+  position: absolute;
+  display: grid;
+  gap: 2px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(4, 8, 14, 0.76);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(116, 241, 199, 0.2);
+  box-shadow: 0 12px 28px rgba(4, 8, 14, 0.38);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: rgba(246, 247, 251, 0.76);
+  transform: translateZ(32px);
+  animation: badgeFloat 4s ease-in-out infinite alternate;
+}
+
+.metricValue {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--sfmd-foreground);
+}
+
+.metricLabel {
+  font-size: 9px;
+  font-weight: 500;
+}
+
+.metricTopLeft {
+  top: 10%;
+  left: 6%;
+}
+
+.metricTopRight {
+  top: 14%;
+  right: 6%;
+}
+
+.metricBottomLeft {
+  bottom: 16%;
+  left: 8%;
+}
+
+.metricBottomRight {
+  bottom: 18%;
+  right: 10%;
+}
+
+.progressRing {
+  position: absolute;
+  inset: 48% auto auto 50%;
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: conic-gradient(from -90deg, var(--sfmd-accent) var(--ring-progress, 0deg), rgba(255, 255, 255, 0.08) var(--ring-progress, 0deg));
+  transition: opacity 600ms ease;
+}
+
+.progressCore {
+  width: 124px;
+  height: 124px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(4, 8, 14, 0.82);
+  border: 1px solid rgba(116, 241, 199, 0.3);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.progressText {
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(246, 247, 251, 0.78);
+}
+
+.dashboardScene {
+  align-content: center;
+  justify-items: center;
+  gap: clamp(18px, 3vw, 28px);
+}
+
+.dashboardRings {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  gap: clamp(18px, 3vw, 28px);
+  width: 100%;
+  max-width: 320px;
+}
+
+.dashboardRing {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 22px;
+  background: rgba(6, 10, 18, 0.82);
+  border: 1px solid rgba(116, 241, 199, 0.12);
+  box-shadow: 0 18px 40px rgba(4, 8, 14, 0.46);
+  text-align: center;
+}
+
+.dashboardProgress {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
+.dashboardProgress strong {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--sfmd-foreground);
+}
+
+.dashboardProgress svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.dashboardTrack {
+  fill: none;
+  stroke: rgba(246, 247, 251, 0.08);
+  stroke-width: 12;
+}
+
+.dashboardIndicator {
+  fill: none;
+  stroke: var(--sfmd-accent);
+  stroke-width: 12;
+  stroke-linecap: round;
+  stroke-dasharray: 326;
+  transition: stroke-dashoffset 600ms ease;
+}
+
+.dashboardRing span {
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(246, 247, 251, 0.64);
+}
+
+.todayCard {
+  width: min(280px, 100%);
+  padding: 24px 28px;
+  border-radius: 26px;
+  background: rgba(6, 10, 18, 0.85);
+  border: 1px solid rgba(116, 241, 199, 0.18);
+  box-shadow: 0 24px 48px rgba(4, 8, 14, 0.45);
+  display: grid;
+  gap: 18px;
+  align-content: start;
+}
+
+.todayCard header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todayCard h3 {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sfmd-foreground);
+}
+
+.streak {
+  font-size: 13px;
+  color: var(--sfmd-accent);
+  letter-spacing: 0.12em;
+}
+
+.todayCard ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+.todayCard li {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: rgba(246, 247, 251, 0.72);
+}
+
+.positive {
+  color: color-mix(in srgb, var(--sfmd-accent) 80%, white 10%);
+}
+
+.negative {
+  color: rgba(246, 247, 251, 0.58);
+}
+
+.phaseAnalysis .screenTrack {
+  transform: translateX(0%);
+}
+
+.phasePhone .screenTrack {
+  transform: translateX(0%);
+}
+
+.phaseDashboard .screenTrack,
+.phaseFinal .screenTrack {
+  transform: translateX(-50%);
+}
+
+.phaseAnalysis .phoneRig {
+  width: min(100vw, 620px);
+  filter: drop-shadow(0 0 120px rgba(14, 140, 120, 0.35));
+}
+
+.phasePhone .phoneRig,
+.phaseDashboard .phoneRig,
+.phaseFinal .phoneRig {
+  width: min(84vw, 380px);
+}
+
+.phaseAnalysis .brandLayer {
+  opacity: 0;
+}
+
+.phaseFinal .brandLayer {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.phaseAnalysis .progressRing,
+.phasePhone .progressRing {
+  opacity: 1;
+}
+
+.phaseDashboard .progressRing,
+.phaseFinal .progressRing {
+  opacity: 0;
+}
+
+@keyframes scanDown {
+  0% {
+    transform: translateY(-100%);
+  }
+  45% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes pulseGrid {
+  0% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes badgeFloat {
+  from {
+    transform: translateZ(32px) translateY(-4px);
+  }
+  to {
+    transform: translateZ(32px) translateY(6px);
+  }
+}
+
+.phaseAnalysis .progressRing {
+  animation: ringFill 2.2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes ringFill {
+  from {
+    --ring-progress: 0deg;
+  }
+  to {
+    --ring-progress: 360deg;
+  }
+}
+
+.wrapper {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+}
+
+@media (max-width: 900px) {
+  .brandLayer {
+    inset: clamp(18px, 6vw, 48px) clamp(18px, 6vw, 48px) clamp(24px, 10vw, 64px);
+  }
+
+  .logotype {
+    letter-spacing: 0.18em;
+  }
+
+  .ctaGroup {
+    align-items: stretch;
+  }
+
+  .primaryCta {
+    width: min(320px, 100%);
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .wrapper {
+    padding-bottom: 120px;
+  }
+
+  .brandLayer {
+    align-items: center;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .brandHeader {
+    align-items: center;
+  }
+
+  .phoneRig {
+    width: min(82vw, 320px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wrapper,
+  .screenTrack,
+  .brandLayer,
+  .progressRing,
+  .dashboardIndicator,
+  .primaryCta {
+    transition: none !important;
+    animation: none !important;
+  }
+}
