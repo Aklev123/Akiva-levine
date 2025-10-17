@@ -1,0 +1,10 @@
+{
+  "name": "skinfitmd-intro",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/test.js",
+    "preview": "node scripts/preview-server.js"
+  }
+}
